@@ -1,0 +1,69 @@
+[
+  {
+    "id": "1",
+    "name": "Project Alpha",
+    "description": "A web-based project management tool.",
+    "startDate": "2024-02-01",
+    "endDate": "2024-06-30",
+    "status": "ongoing",
+    "priority": "high",
+    "listOfDevelopers": [
+      {
+        "devID": "101",
+        "devName": "Alice",
+        "email": "alice@example.com",
+        "role": "Frontend Developer",
+        "availability": "full-time",
+        "assignedDate": "2024-02-05",
+        "listOfTasks": [
+          {
+            "taskId": "T1",
+            "taskName": "Setup project structure",
+            "description": "Initialize React project and folder structure.",
+            "status": "completed",
+            "assignedTo": "Alice",
+            "dueDate": "2024-02-10",
+            "priority": "high"
+          },
+          {
+            "taskId": "T2",
+            "taskName": "Design UI components",
+            "description": "Create reusable UI components for the dashboard.",
+            "status": "in-progress",
+            "assignedTo": "Alice",
+            "dueDate": "2024-02-20",
+            "priority": "medium"
+          }
+        ]
+      },
+      {
+        "devID": "102",
+        "devName": "Bob",
+        "email": "bob@example.com",
+        "role": "Backend Developer",
+        "availability": "full-time",
+        "assignedDate": "2024-02-06",
+        "listOfTasks": [
+          {
+            "taskId": "T3",
+            "taskName": "Setup database schema",
+            "description": "Define tables and relationships for project data.",
+            "status": "pending",
+            "assignedTo": "Bob",
+            "dueDate": "2024-02-15",
+            "priority": "high"
+          },
+          {
+            "taskId": "T4",
+            "taskName": "Develop authentication API",
+            "description": "Implement login and user authentication API using JWT.",
+            "status": "in-progress",
+            "assignedTo": "Bob",
+            "dueDate": "2024-02-25",
+            "priority": "high"
+          }
+        ]
+      }
+    ]
+  }
+]
