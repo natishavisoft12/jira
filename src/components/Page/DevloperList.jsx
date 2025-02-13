@@ -11,6 +11,10 @@ const DeveloperList = () => {
 
     const { projects } = useSelector((state) => state.projects);
     const selectedProject = projects.find((project) => project.id === id);
+    // console.log(selectedProject,'select project');
+    // console.log(selectedProject.listOfDevelopers,"list of devlopers");
+    
+    
 
     const handleSelectDevlopersById = (devID) => {
         dispatch(selectDevloperbyId(devID));
@@ -51,7 +55,7 @@ const DeveloperList = () => {
                 </ul>
 
                 <div className="mt-6 flex justify-center">
-                    <Button text="➕ Add New Developer" variant="primary" />
+                    <Button text="➕ Add New Developer" variant="primary" click="/addNewDevloper" />
                 </div>
             </div>
         </div>

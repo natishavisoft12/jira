@@ -13,6 +13,8 @@ const Home = () => {
     
     
     const { projects, selectProject, loading, error } = useSelector((state) => state.projects);
+    console.log(projects," 1");
+    
     
   
 

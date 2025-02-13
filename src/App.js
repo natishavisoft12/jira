@@ -9,6 +9,7 @@ import Pending from './components/taskStates/Pending';
 import Ongoing from './components/taskStates/Ongoing';
 import TaskDetails from './components/Page/TaskDetails';
 import AddNewTask from './components/forms/AddNewTask';
+import AddDevelopers from './components/forms/AddDevlopers';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/ongoing' element={<Ongoing/>}/>
         <Route path="/task/:taskId" element={<TaskDetails />} />
         <Route path='/addNewtask' element={<AddNewTask/>}/>
+        <Route path='/addNewDevloper' element={<AddDevelopers/>}/>
         
       </Routes>
      
