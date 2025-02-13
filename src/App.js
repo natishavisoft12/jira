@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Home from './components/Page/Home';
 import DeveloperList from './components/Page/DevloperList';
@@ -10,6 +10,7 @@ import Ongoing from './components/taskStates/Ongoing';
 import TaskDetails from './components/Page/TaskDetails';
 import AddNewTask from './components/forms/AddNewTask';
 import AddDevelopers from './components/forms/AddDevlopers';
+import AddNewProject from './components/forms/AddNewProject';
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
         <Route path="/task/:taskId" element={<TaskDetails />} />
         <Route path='/addNewtask' element={<AddNewTask/>}/>
         <Route path='/addNewDevloper' element={<AddDevelopers/>}/>
-        
+        <Route path='/addNewProject' element={<AddNewProject/>}/>
       </Routes>
      
     </div>

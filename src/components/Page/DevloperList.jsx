@@ -11,8 +11,7 @@ const DeveloperList = () => {
 
     const { projects } = useSelector((state) => state.projects);
     const selectedProject = projects.find((project) => project.id === id);
-    // console.log(selectedProject,'select project');
-    // console.log(selectedProject.listOfDevelopers,"list of devlopers");
+   
     
     
 

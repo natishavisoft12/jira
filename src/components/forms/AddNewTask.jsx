@@ -25,7 +25,7 @@ const selectProject = useSelector((state) => state.projects);
     e.preventDefault();
 
     const newTask = {
-        taskId: Date.now(),
+        taskId: Date.now().toString(),
         projectId: selectProject?.id,  // Link task to selected project
         ...formData,
     };

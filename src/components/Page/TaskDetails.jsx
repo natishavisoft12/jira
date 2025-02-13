@@ -1,13 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const TaskDetails = () => {
-    const { taskId } = useParams(); // 🔥 Get taskId from URL
+    const { taskId } = useParams(); 
     const navigate = useNavigate();
+     const [tasks, setTasks] = useState([]);
+    
+        useEffect(() => {
+            // Fetch projects from localStorage
+            const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
+            const storedProject = JSON.parse(localStorage.getItem("project")); 
+            const storedDeveloper = JSON.parse(localStorage.getItem("devloper")); 
+    
+            if (storedProject && storedDeveloper) {
+                // Find the selected project in localStorage
+                const project = storedProjects.find(proj => proj.id === storedProject.id);
+                if (project) {
+                    // Find the developer in the project
+                    const developer = project.listOfDevelopers?.find(dev => dev.devID === storedDeveloper.devID);
+                    if (developer) {
+                        setTasks(developer.listOfTasks || []);
+                    }
+                }
+            }
+        }, []);
+    
+     
+        const pendingTasks = tasks.filter((task) => task.status === "pending");
+        const completedTasks = tasks.filter((task) => task.status === "completed");
+        const ongoingTasks = tasks.filter((task) => task.status === "ongoing");
+        console.log(pendingTasks,"pend");
+        console.log(completedTasks,"comp");
+        
+        
 
     // Redux se task fetch karna
     const developer = useSelector((state) => state.projects.selectDevloper);
+    console.log(developer," olo");
+    
     const task = developer?.listOfTasks?.find((t) => t.taskId === taskId);
     console.log(task," task jifdh");
     
@@ -56,22 +87,3 @@ const TaskDetails = () => {
 };
 
 export default TaskDetails;
-// add: (state, action) => {
-//     const newpro = {
-//         "Project_id": state.data.length + 1,
-//         "Project_Name": action.payload.title,
-//         "Project_Description": action.payload.dis,
-//         "start_date": "12-07-2022",
-//         "end_date": "",
-//         "status": "IN PROGRESS",
-//         "Developers": []
-//     }
-//     state.data.push(newpro)
-
-//     toast.success("Project added successfully!", {
-//         position: "top-center",
-//         closeOnClick: true
-
-//     })
-//     console.log("done")
-// },
