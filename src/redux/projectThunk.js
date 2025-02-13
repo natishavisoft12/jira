@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const projectsThunk = createAsyncThunk("jira/projects", async (_, { rejectWithValue }) => {
     try {
-        const response = await fetch("/productData.json"); // Ensure correct path
+        const response = await fetch("/productData.json"); 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }

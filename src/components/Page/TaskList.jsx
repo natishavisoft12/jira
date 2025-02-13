@@ -27,7 +27,7 @@ const TaskList = () => {
     // Filter tasks based on status
     const pendingTasks = tasks.filter((task) => task.status === "pending");
     const completedTasks = tasks.filter((task) => task.status === "completed");
-    const ongoingTasks = tasks.filter((task) => task.status === "ongoing");
+    const ongoingTasks = tasks.filter((task) => task.status === "in-progress");
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">

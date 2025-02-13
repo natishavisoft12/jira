@@ -35,30 +35,30 @@ const projectSlice = createSlice({
                 console.error("⚠️ Error: Project or Developer not selected!");
                 return;
             }
-        
+
             // Find the project
             const project = state.projects.find(proj => proj.id === state.selectProject.id);
             if (!project) {
                 console.error("⚠️ Error: Project not found!");
                 return;
             }
-        
+
             // Find the developer inside the project
             const developer = project.listOfDevelopers?.find(dev => dev.devID === state.selectDevloper.devID);
             if (!developer) {
                 console.error("⚠️ Error: Developer not found in project!");
                 return;
             }
-        
+
             //  Initialize taskList if it doesn't exist
             if (!developer.listOfTasks) {
                 developer.listOfTasks = [];
             }
-        
+
             // Add new task
             const newTask = action.payload;
             developer.listOfTasks.push(newTask); // 
-        
+
             // Update project
             const updatedProject = {
                 ...project,
@@ -66,24 +66,24 @@ const projectSlice = createSlice({
                     dev.devID === developer.devID ? developer : dev
                 ),
             };
-        
+
             // Update Redux state
             state.selectDevloper = { ...developer };
             state.selectProject = updatedProject;
-        
+
             // ✅ Update localStorage
             localStorage.setItem("projects", JSON.stringify(state.projects));
             localStorage.setItem("project", JSON.stringify(updatedProject));
             localStorage.setItem("devloper", JSON.stringify(developer));
-        
+
             console.log("✅ Task added successfully!", newTask);
         },
-        
-        
+
+
 
         addDevloper: (state, action) => {
             if (!state.selectProject) {
-               
+
                 return;
             }
 
@@ -91,7 +91,7 @@ const projectSlice = createSlice({
             const project = state.projects.find(proj => proj.id === state.selectProject.id);
 
             if (!project) {
-              
+
                 return;
             }
 
@@ -110,9 +110,29 @@ const projectSlice = createSlice({
 
             console.log("✅ Developer added successfully!", action.payload);
         },
-        addNewproject:(state,action)=>{
+        removeDeveloper: (state, action) => {
+            if (!state.selectProject) return;
+
+            // Find project by ID
+            const project = state.projects.find(proj => proj.id === state.selectProject.id);
+            if (!project) return;
+
+            // Filter out the developer to be removed
+            project.listOfDevelopers = project.listOfDevelopers.filter(dev => dev.devID !== action.payload);
+
+            // Update `selectProject` in state
+            state.selectProject = { ...project };
+
+            // Save changes to localStorage
+            localStorage.setItem("projects", JSON.stringify(state.projects));
+            localStorage.setItem("project", JSON.stringify(state.selectProject));
+
+            console.log(`✅ Developer with ID ${action.payload} removed successfully!`);
+        },
+
+        addNewproject: (state, action) => {
             state.projects.push(action.payload)
-            localStorage.setItem("projects",JSON.stringify(state.projects))
+            localStorage.setItem("projects", JSON.stringify(state.projects))
         }
 
 
@@ -138,5 +158,5 @@ const projectSlice = createSlice({
     }
 });
 
-export const { selectProjectbyId, selectDevloperbyId, addProject, addTask, addDevloper,addNewproject} = projectSlice.actions;
+export const { selectProjectbyId, selectDevloperbyId, addProject, addTask, addDevloper, addNewproject, removeDeveloper } = projectSlice.actions;
 export default projectSlice.reducer;

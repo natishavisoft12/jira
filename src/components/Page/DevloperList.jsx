@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { selectDevloperbyId } from "../../redux/projectSlice";
+import { removeDeveloper, selectDevloperbyId } from "../../redux/projectSlice";
 import Button from "../common/Button";
 
 const DeveloperList = () => {
@@ -19,6 +19,10 @@ const DeveloperList = () => {
         dispatch(selectDevloperbyId(devID));
         navigate(`/alltask/${devID}`);
     };
+    const handleRemoveDeveloper = (devID) => {
+        dispatch(removeDeveloper(devID));
+    };
+    
 
     if (!selectedProject) {
         return <p className="text-center text-red-500 text-lg mt-10">🚨 Project not found!</p>;
@@ -46,9 +50,16 @@ const DeveloperList = () => {
                                 </p>
                                 <p className="text-sm text-gray-500">📅 Assigned: {dev.assignedDate}</p>
                             </div>
-                            <button className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
-                                ❌ Remove
-                            </button>
+                            <button 
+    className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+    onClick={(e) => {
+        e.stopPropagation(); // Prevent parent `onClick`
+        handleRemoveDeveloper(dev.devID);
+    }}
+>
+    ❌ Remove
+</button>
+
                         </li>
                     ))}
                 </ul>
