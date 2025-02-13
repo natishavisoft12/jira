@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Complete = () => {
-    
+
     const navigate = useNavigate();
     const developer = useSelector((state) => state.projects.selectDevloper);
 
@@ -25,7 +25,7 @@ const Complete = () => {
                                 key={task.taskId} 
                                 className="bg-green-100 border-l-4 border-green-500 p-4 rounded-lg shadow-md text-gray-700 hover:bg-green-200 transition"
                             >
-                                {/* 🔥 Click karne par task detail page khulega */}
+                                
                                 <Link 
                                     to={`/task/${task.taskId}`} 
                                     className="font-semibold cursor-pointer text-green-700 hover:underline"

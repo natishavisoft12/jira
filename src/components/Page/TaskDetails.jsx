@@ -27,20 +27,15 @@ const TaskDetails = () => {
         }, []);
     
      
-        const pendingTasks = tasks.filter((task) => task.status === "pending");
-        const completedTasks = tasks.filter((task) => task.status === "completed");
-        const ongoingTasks = tasks.filter((task) => task.status === "ongoing");
-        console.log(pendingTasks,"pend");
-        console.log(completedTasks,"comp");
+       
         
         
 
-    // Redux se task fetch karna
     const developer = useSelector((state) => state.projects.selectDevloper);
-    console.log(developer," olo");
+ 
     
     const task = developer?.listOfTasks?.find((t) => t.taskId === taskId);
-    console.log(task," task jifdh");
+   
     
 
     if (!task) {

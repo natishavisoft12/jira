@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";  // ✅ Import useNavigate
+import { useNavigate } from "react-router-dom";  
 import { addTask } from "../../redux/projectSlice";
 
 const AddNewTask = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();  // ✅ Initialize navigate
-const selectProject = useSelector((state) => state.projects);
+  const navigate = useNavigate();  
+  const selectProject = useSelector((state) => state.projects);
 
   const [formData, setFormData] = useState({
     taskName: "",
     description: "",
-    status: "",
+    status: "pending",  // Default status
     assignedTo: "",
     dueDate: "",
     priority: "Medium",
@@ -25,23 +25,20 @@ const selectProject = useSelector((state) => state.projects);
     e.preventDefault();
 
     const newTask = {
-        taskId: Date.now().toString(),
-        projectId: selectProject?.id,  // Link task to selected project
-        ...formData,
+      taskId: Date.now().toString(),
+      projectId: selectProject?.id,  
+      ...formData,
     };
-    console.log(newTask);
-    
-    dispatch(addTask(newTask));  // ✅ Dispatch action
+
+    dispatch(addTask(newTask));  
     console.log("Task Added:", newTask);
 
-    // ✅ Redirect to another page after submission
-    navigate("/"); 
+    navigate("/");  
 
-    // Reset form
     setFormData({
       taskName: "",
       description: "",
-      status: "",
+      status: "pending",
       assignedTo: "",
       dueDate: "",
       priority: "Medium",
@@ -78,16 +75,20 @@ const selectProject = useSelector((state) => state.projects);
             />
           </div>
 
+          {/* ✅ Updated Status Field with Dropdown */}
           <div>
             <label className="block font-semibold">Status:</label>
-            <input
-              type="text"
+            <select
               name="status"
               value={formData.status}
               onChange={handleChange}
               className="w-full p-2 border rounded-md"
               required
-            />
+            >
+              <option value="completed">completed</option>
+              <option value="in-progress">in-progress</option>
+              <option value="pending">pending</option>
+            </select>
           </div>
 
           <div>
