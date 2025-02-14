@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addNewproject } from "../../redux/projectSlice";
-
+import { IoArrowBackCircleSharp } from "react-icons/io5";
+import BackBtn from "../common/BackBtn";
 
 const AddNewProject = () => {
     const dispatch = useDispatch();
@@ -122,12 +123,7 @@ const AddNewProject = () => {
                     </button>
                 </form>
 
-                <button
-                    onClick={() => navigate(-1)}
-                    className="mt-4 w-full bg-gray-500 text-white py-2 rounded-lg shadow-md hover:bg-gray-600 transition duration-300"
-                >
-                    🔙 Go Back
-                </button>
+                <BackBtn/>
             </div>
         </div>
     );

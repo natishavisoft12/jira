@@ -30,27 +30,27 @@ const projectSlice = createSlice({
         },
 
         addTask: (state, action) => {
-            // Ensure project and developer are selected
+
             if (!state.selectProject || !state.selectDevloper) {
-             
+
                 return;
             }
 
-            // Find the project
+
             const project = state.projects.find(proj => proj.id === state.selectProject.id);
             if (!project) {
-              
+
                 return;
             }
 
             // Find the developer inside the project
             const developer = project.listOfDevelopers?.find(dev => dev.devID === state.selectDevloper.devID);
             if (!developer) {
-               
+
                 return;
             }
 
-           
+
             if (!developer.listOfTasks) {
                 developer.listOfTasks = [];
             }
@@ -58,7 +58,7 @@ const projectSlice = createSlice({
             const newTask = action.payload;
             developer.listOfTasks.push(newTask); // 
 
-          
+
             const updatedProject = {
                 ...project,
                 listOfDevelopers: project.listOfDevelopers.map(dev =>
@@ -66,16 +66,16 @@ const projectSlice = createSlice({
                 ),
             };
 
-            
+
             state.selectDevloper = { ...developer };
             state.selectProject = updatedProject;
 
-           
+
             localStorage.setItem("projects", JSON.stringify(state.projects));
             localStorage.setItem("project", JSON.stringify(updatedProject));
             localStorage.setItem("devloper", JSON.stringify(developer));
 
-            
+
         },
 
 
@@ -97,42 +97,71 @@ const projectSlice = createSlice({
             // Ensure listOfDevelopers exists
             project.listOfDevelopers = project.listOfDevelopers || [];
 
-            
+
             project.listOfDevelopers.push(action.payload);
 
-            
+
             state.selectProject = { ...project };
 
             // Save to localStorage
             localStorage.setItem("projects", JSON.stringify(state.projects));
             localStorage.setItem("project", JSON.stringify(state.selectProject));
 
-          
+
         },
         removeDeveloper: (state, action) => {
             if (!state.selectProject) return;
 
-          
+
             const project = state.projects.find(proj => proj.id === state.selectProject.id);
             if (!project) return;
 
-
             project.listOfDevelopers = project.listOfDevelopers.filter(dev => dev.devID !== action.payload);
 
-         
+
             state.selectProject = { ...project };
 
-         
+
             localStorage.setItem("projects", JSON.stringify(state.projects));
             localStorage.setItem("project", JSON.stringify(state.selectProject));
 
-         
+
         },
 
         addNewproject: (state, action) => {
             state.projects.push(action.payload)
             localStorage.setItem("projects", JSON.stringify(state.projects))
-        }
+        },
+        updateTaskStatus: (state, action) => {
+            const { taskId, newStatus } = action.payload;
+
+            if (!state.selectProject || !state.selectDevloper) return;
+
+            const project = state.projects.find(proj => proj.id === state.selectProject.id);
+            if (!project) return;
+
+            const developer = project.listOfDevelopers?.find(dev => dev.devID === state.selectDevloper.devID);
+            if (!developer) return;
+
+            const task = developer.listOfTasks?.find(t => t.taskId === taskId);
+            if (!task) return;
+
+            task.status = newStatus;
+
+            state.selectDevloper = { ...developer };
+            state.selectProject = {
+                ...project,
+                listOfDevelopers: project.listOfDevelopers.map(dev =>
+                    dev.devID === developer.devID ? developer : dev
+                ),
+            };
+
+            localStorage.setItem("projects", JSON.stringify(state.projects));
+            localStorage.setItem("project", JSON.stringify(state.selectProject));
+            localStorage.setItem("devloper", JSON.stringify(state.selectDevloper));
+        },
+        
+
 
 
 
@@ -147,7 +176,7 @@ const projectSlice = createSlice({
                 state.loading = false;
                 state.projects = action.payload.filter((proj, index, self) =>
                     index === self.findIndex(p => p.id === proj.id)
-                ); 
+                );
                 localStorage.setItem("projects", JSON.stringify(state.projects));
             })
             .addCase(projectsThunk.rejected, (state, action) => {
@@ -157,5 +186,5 @@ const projectSlice = createSlice({
     }
 });
 
-export const { selectProjectbyId, selectDevloperbyId, addProject, addTask, addDevloper, addNewproject, removeDeveloper } = projectSlice.actions;
+export const { selectProjectbyId, selectDevloperbyId, addProject, addTask, addDevloper, addNewproject, removeDeveloper, updateTaskStatus } = projectSlice.actions;
 export default projectSlice.reducer;

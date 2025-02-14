@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { IoArrowBackCircleSharp } from "react-icons/io5";
+import BackBtn from "../common/BackBtn";
 const Pending = () => {
     const developer = useSelector((state) => state.projects.selectDevloper);
-
+    const navigate = useNavigate()
     if (!developer || !developer.listOfTasks) {
         return <p className="text-center text-lg text-gray-500 mt-10">⏳ Loading tasks...</p>;  
     }
@@ -34,6 +35,7 @@ const Pending = () => {
                     </p> 
                 )}
             </div>
+            <BackBtn/>
         </div>
     );
 };

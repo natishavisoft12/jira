@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";  
+import { useNavigate } from "react-router-dom";
 import { addTask } from "../../redux/projectSlice";
-
+import { IoArrowBackCircleSharp } from "react-icons/io5";
+import BackBtn from "../common/BackBtn";
 const AddNewTask = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
   const selectProject = useSelector((state) => state.projects);
+  const developer = useSelector((state) => state.projects.selectDevloper);
 
   const [formData, setFormData] = useState({
     taskName: "",
     description: "",
-    status: "pending",  // Default status
-    assignedTo: "",
+    status: "pending",
+    assignedTo: developer.devName,
     dueDate: "",
     priority: "Medium",
   });
@@ -26,102 +28,101 @@ const AddNewTask = () => {
 
     const newTask = {
       taskId: Date.now().toString(),
-      projectId: selectProject?.id,  
+      projectId: selectProject?.id,
       ...formData,
     };
 
-    dispatch(addTask(newTask));  
+    dispatch(addTask(newTask));
     console.log("Task Added:", newTask);
 
-    navigate("/");  
+    navigate("/");
 
     setFormData({
       taskName: "",
       description: "",
       status: "pending",
-      assignedTo: "",
+      assignedTo: developer.devName,
       dueDate: "",
       priority: "Medium",
     });
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">
-          Add New Task
-        </h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
+      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+      <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
+  📝 Add New Task to <span className="text-blue-600">{developer.devName}</span>
+       </h2>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block font-semibold">Task Name:</label>
+            <label className="block font-semibold text-gray-700">Task Name:</label>
             <input
               type="text"
               name="taskName"
               value={formData.taskName}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
           </div>
 
           <div>
-            <label className="block font-semibold">Description:</label>
+            <label className="block font-semibold text-gray-700">Description:</label>
             <textarea
               name="description"
               value={formData.description}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
           </div>
 
-          {/* ✅ Updated Status Field with Dropdown */}
           <div>
-            <label className="block font-semibold">Status:</label>
+            <label className="block font-semibold text-gray-700">Status:</label>
             <select
               name="status"
               value={formData.status}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             >
-              <option value="completed">completed</option>
-              <option value="in-progress">in-progress</option>
-              <option value="pending">pending</option>
+              <option value="completed">Completed</option>
+              <option value="in-progress">In Progress</option>
+              <option value="pending">Pending</option>
             </select>
           </div>
 
           <div>
-            <label className="block font-semibold">Assigned To:</label>
+            <label className="block font-semibold text-gray-700">Assigned To:</label>
             <input
               type="text"
               name="assignedTo"
+              readOnly
               value={formData.assignedTo}
-              onChange={handleChange}
-              className="w-full p-2 border rounded-md"
-              required
+              className="w-full p-2 border border-gray-300 rounded-md bg-gray-100"
             />
           </div>
 
           <div>
-            <label className="block font-semibold">Due Date:</label>
+            <label className="block font-semibold text-gray-700">Due Date:</label>
             <input
               type="date"
               name="dueDate"
               value={formData.dueDate}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
           </div>
 
           <div>
-            <label className="block font-semibold">Priority:</label>
+            <label className="block font-semibold text-gray-700">Priority:</label>
             <select
               name="priority"
               value={formData.priority}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             >
               <option value="High">High</option>
@@ -132,11 +133,12 @@ const AddNewTask = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition"
+            className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-300"
           >
-            Add Task
+            ➕ Add Task
           </button>
         </form>
+        <BackBtn/>
       </div>
     </div>
   );
