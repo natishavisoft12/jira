@@ -11,12 +11,15 @@ import TaskDetails from './components/Page/TaskDetails';
 import AddNewTask from './components/forms/AddNewTask';
 import AddDevelopers from './components/forms/AddDevlopers';
 import AddNewProject from './components/forms/AddNewProject';
+import Navbar from './components/Page/Navbar';
+
 
 function App() {
+
   return (
     <div className="App">
       
-   
+      <Navbar  />
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/developer/:id'element={<DeveloperList/>}/>

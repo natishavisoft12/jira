@@ -1,31 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import BackBtn from "../common/BackBtn";
+import { updateTaskStatus } from "../../redux/projectSlice";
+
+import { GrUpdate } from "react-icons/gr";
 const TaskDetails = () => {
     const { taskId } = useParams();
     const navigate = useNavigate();
-    const [tasks, setTasks] = useState([]);
-
-    useEffect(() => {
-        const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-        const storedProject = JSON.parse(localStorage.getItem("project"));
-        const storedDeveloper = JSON.parse(localStorage.getItem("devloper"));
-
-        if (storedProject && storedDeveloper) {
-            const project = storedProjects.find((proj) => proj.id === storedProject.id);
-            if (project) {
-                const developer = project.listOfDevelopers?.find((dev) => dev.devID === storedDeveloper.devID);
-                if (developer) {
-                    setTasks(developer.listOfTasks || []);
-                }
-            }
-        }
-    }, []);
+    const dispatch = useDispatch();
+    const [status, setStatus] = useState("");
 
     const developer = useSelector((state) => state.projects.selectDevloper);
     const task = developer?.listOfTasks?.find((t) => t.taskId === taskId);
+
+    useEffect(() => {
+        if (task) {
+            setStatus(task.status); 
+        }
+    }, [task]);
 
     if (!task) {
         return (
@@ -37,6 +31,11 @@ const TaskDetails = () => {
         );
     }
 
+    const handleUpdateStatus = () => {
+        dispatch(updateTaskStatus({ taskId: task.taskId, newStatus: status }));
+        navigate(-1)
+    };
+
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
             <div className="w-full max-w-lg bg-white shadow-md rounded-lg p-6 border border-gray-200">
@@ -45,13 +44,15 @@ const TaskDetails = () => {
                 <div className="p-4 bg-gray-100 rounded-lg space-y-3">
                     <div className="flex justify-between items-center">
                         <p className="text-gray-600 text-base font-medium">Status:</p>
-                        <span
-                            className={`px-3 py-1 text-sm font-semibold text-white rounded-lg 
-                            ${task.status === "completed" ? "bg-green-500" : 
-                            task.status === "pending" ? "bg-red-500" : "bg-yellow-500"}`}
+                        <select 
+                            value={status} 
+                            onChange={(e) => setStatus(e.target.value)} 
+                            className="px-3 py-1 text-sm font-semibold rounded-lg border border-gray-300"
                         >
-                            {task.status}
-                        </span>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
                     </div>
 
                     <div className="flex justify-between items-center">
@@ -78,7 +79,15 @@ const TaskDetails = () => {
                     </p>
                 </div>
 
-                <BackBtn/>
+               
+                <button
+                    onClick={handleUpdateStatus}
+                    className="mt-4 w-full bg-blue-500 text-white font-semibold py-2 gap-3 rounded-md shadow-md flex justify-center items-center hover:bg-blue-600 transition duration-300"
+                > <GrUpdate className=" flex items-center"/>
+                    Update Task
+                </button>
+
+                <BackBtn />
             </div>
         </div>
     );

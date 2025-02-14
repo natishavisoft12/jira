@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { IoArrowBackCircleSharp } from "react-icons/io5";
+import { SiGoogletasks } from "react-icons/si";
 import BackBtn from "../common/BackBtn";
 const Complete = () => {
     const navigate = useNavigate();
@@ -21,8 +21,8 @@ const Complete = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-green-400 to-blue-500 p-6">
-            <h2 className="text-4xl font-extrabold text-white mb-6 bg-green-700 px-6 py-2 rounded-lg shadow-md">
-                ✅ Completed Tasks
+            <h2 className="text-4xl font-extrabold text-white mb-6 bg-green-700 px-6 py-2 rounded-lg shadow-md flex gap-2">
+                <SiGoogletasks/> Completed Tasks by {developer.devName}
             </h2>
 
             {completedTasks.length > 0 ? (
@@ -45,7 +45,7 @@ const Complete = () => {
                 </div>
             ) : (
                 <p className="text-white text-xl mt-6 bg-gray-900 px-5 py-3 rounded-lg shadow-md">
-                    No completed tasks available.
+                    No completed tasks available. {developer.devName}
                 </p>
             )}
 

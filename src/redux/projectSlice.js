@@ -160,6 +160,18 @@ const projectSlice = createSlice({
             localStorage.setItem("project", JSON.stringify(state.selectProject));
             localStorage.setItem("devloper", JSON.stringify(state.selectDevloper));
         },
+        removeProject: (state, action) => {
+            state.projects = state.projects.filter(proj => proj.id !== action.payload);
+            
+            // If the deleted project was selected, reset selectProject
+            if (state.selectProject?.id === action.payload) {
+                state.selectProject = null;
+                localStorage.removeItem("project");
+            }
+            
+            localStorage.setItem("projects", JSON.stringify(state.projects));
+        },
+        
         
 
 
@@ -186,5 +198,5 @@ const projectSlice = createSlice({
     }
 });
 
-export const { selectProjectbyId, selectDevloperbyId, addProject, addTask, addDevloper, addNewproject, removeDeveloper, updateTaskStatus } = projectSlice.actions;
+export const { selectProjectbyId, selectDevloperbyId, addProject, addTask, addDevloper, addNewproject, removeDeveloper, updateTaskStatus,removeProject } = projectSlice.actions;
 export default projectSlice.reducer;

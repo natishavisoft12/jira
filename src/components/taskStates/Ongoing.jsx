@@ -17,7 +17,7 @@ const Ongoing = () => {
         <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
             <div className="w-full max-w-3xl bg-white shadow-lg rounded-lg p-6">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
-                    🛠️ Ongoing Tasks
+                    🛠️ {developer.devName} works on 
                 </h2>
 
                 {ongoingData.length > 0 ? (
@@ -33,7 +33,7 @@ const Ongoing = () => {
                     </ul>
                 ) : (
                     <p className="text-gray-500 text-center mt-4">
-                        🚀 No ongoing tasks available.
+                        🚀 No ongoing tasks available. 
                     </p> 
                 )}
             </div>

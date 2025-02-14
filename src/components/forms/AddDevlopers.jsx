@@ -4,6 +4,7 @@ import { addDevloper } from "../../redux/projectSlice";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import BackBtn from "../common/BackBtn";
+import { IoIosAddCircleOutline } from "react-icons/io";
 const AddDevelopers = () => {
     const dispatch = useDispatch();
     const selectedProject = useSelector((state) => state.projects.selectProject);
@@ -46,7 +47,7 @@ const AddDevelopers = () => {
         <>
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 shadow-lg rounded-lg border border-gray-200">
                 <h2 className="text-2xl font-semibold text-center text-gray-700 mb-4">
-                    Add Developer in <span className=" text-gray-800">{selectedProject?.name || "Project"}</span>
+                    Add Developer in <span className=" text-blue-600">{selectedProject?.name || "Project"}</span>
                 </h2>
 
 
@@ -76,8 +77,8 @@ const AddDevelopers = () => {
                 </div>
 
                 <button type="submit"
-                    className="w-full mt-4 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                    Add Developer
+                    className="w-full mt-4 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2">
+                   <IoIosAddCircleOutline/> Add Developer
                 </button>
             </form>
             <BackBtn/>

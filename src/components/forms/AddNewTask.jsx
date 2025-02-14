@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { addTask } from "../../redux/projectSlice";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import BackBtn from "../common/BackBtn";
+import { BsListTask } from "react-icons/bs";
 const AddNewTask = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -50,9 +51,13 @@ const AddNewTask = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-      <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
-  📝 Add New Task to <span className="text-blue-600">{developer.devName}</span>
-       </h2>
+        <h2 className="text-3xl font-bold text-gray-800 text-center mb-6 flex items-center justify-center gap-3">
+          <BsListTask className="text-blue-600 text-4xl" />
+          <span>
+            Add New Task to <span className="text-blue-600">{developer.devName}</span>
+          </span>
+        </h2>
+
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -138,7 +143,7 @@ const AddNewTask = () => {
             ➕ Add Task
           </button>
         </form>
-        <BackBtn/>
+        <BackBtn />
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ const Pending = () => {
         <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
             <div className="w-full max-w-3xl bg-white shadow-lg rounded-lg p-6">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
-                    ⏳ Pending Tasks
+                    ⏳ {developer.devName} Pending Tasks 
                 </h2>
 
                 {pendingdata.length > 0 ? (

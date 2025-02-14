@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Button = ({ text, onClick, variant = "primary" ,click}) => {
+const Button = ({ text, onClick, variant = "primary" ,click,icon}) => {
   const navigate=useNavigate()
     const baseStyles = "px-5 py-2 font-semibold rounded-lg shadow-md transition-all duration-300";
     
@@ -16,8 +16,8 @@ const Button = ({ text, onClick, variant = "primary" ,click}) => {
     return (
         <button 
             onClick={()=>navigate(click)} 
-            className={`${baseStyles} ${variants[variant]} hover:scale-105 focus:ring-2 focus:ring-opacity-50`}
-        >
+            className={`${baseStyles} ${variants[variant]} hover:scale-105 focus:ring-2 focus:ring-opacity-50 flex justify-center items-center gap-2`}
+        > {icon}
             {text}
         </button>
     );
