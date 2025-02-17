@@ -97,7 +97,7 @@ const Home = () => {
                                 
                                 <p className="text-gray-500 mt-2"><b>📅 Start:</b> {project.startDate || "N/A"}</p>
                                 <p className="text-gray-500"><b>⏳ End:</b> {project.endDate || "N/A"}</p>
-                                <button onClick={(event)=>navigate("/editProject")}>edit</button>
+                               
                             </div>
                         ))
                     )}
