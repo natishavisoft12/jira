@@ -5,7 +5,7 @@ import { selectProjectbyId, removeProject } from "../../redux/projectSlice";
 import { useNavigate } from "react-router-dom";
 import Button from "../common/Button";
 import { GrProjects } from "react-icons/gr";
-import { MdDelete } from "react-icons/md"; // Import delete icon
+import { MdDelete } from "react-icons/md";
 import { FaProjectDiagram } from "react-icons/fa";
 
 const Home = () => {
@@ -48,6 +48,7 @@ const Home = () => {
                 </p>
             </div>
         );
+        
 
     return (
         <div className="min-h-screen py-10">
@@ -64,7 +65,7 @@ const Home = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {projects.length === 0 ? (
                         <p className="text-gray-200 text-lg text-center w-full">
-                            No projects found.
+                            No project found.
                         </p>
                     ) : (
                         projects.map((project) => (
@@ -81,6 +82,7 @@ const Home = () => {
                                         className="text-red-500 hover:text-red-700 transition"
                                     >
                                         <MdDelete size={24} />
+                                        
                                     </button>
                                 </div>
 
@@ -95,6 +97,7 @@ const Home = () => {
                                 
                                 <p className="text-gray-500 mt-2"><b>📅 Start:</b> {project.startDate || "N/A"}</p>
                                 <p className="text-gray-500"><b>⏳ End:</b> {project.endDate || "N/A"}</p>
+                                <button onClick={(event)=>navigate("/editProject")}>edit</button>
                             </div>
                         ))
                     )}

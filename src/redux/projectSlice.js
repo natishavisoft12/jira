@@ -163,7 +163,7 @@ const projectSlice = createSlice({
         removeProject: (state, action) => {
             state.projects = state.projects.filter(proj => proj.id !== action.payload);
             
-            // If the deleted project was selected, reset selectProject
+            
             if (state.selectProject?.id === action.payload) {
                 state.selectProject = null;
                 localStorage.removeItem("project");
@@ -171,6 +171,10 @@ const projectSlice = createSlice({
             
             localStorage.setItem("projects", JSON.stringify(state.projects));
         },
+
+
+        
+        
         
         
 

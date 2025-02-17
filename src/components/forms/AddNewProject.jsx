@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addNewproject } from "../../redux/projectSlice";
-import { IoArrowBackCircleSharp } from "react-icons/io5";
 import BackBtn from "../common/BackBtn";
 
 const AddNewProject = () => {
@@ -10,29 +9,52 @@ const AddNewProject = () => {
     const navigate = useNavigate();
 
     const [project, setProject] = useState({
-        id: Date.now().toString(), // Unique project ID
+        id: Date.now().toString(),
         name: "",
         description: "",
         startDate: "",
         endDate: "",
         status: "ongoing",
         priority: "high",
-        listOfDevelopers: [], // Empty array initially
+        listOfDevelopers: [],
     });
 
+    const [error, setError] = useState("");
+
     const handleChange = (e) => {
-        setProject({ ...project, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setProject((prev) => {
+            const updatedProject = { ...prev, [name]: value };
+
+            
+            if (updatedProject.startDate && updatedProject.endDate) {
+                if (new Date(updatedProject.startDate) > new Date(updatedProject.endDate)) {
+                    setError("Start Date must be earlier than End Date.");
+                } else {
+                    setError(""); 
+                }
+            }
+
+            return updatedProject;
+        });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+      
+        if (error) {
+            alert(error);
+            return;
+        }
+
         if (!project.name.trim() || !project.startDate || !project.endDate) {
             alert("Please fill in all required fields.");
             return;
         }
 
-        dispatch(addNewproject(project)); // Dispatch RTK action
-        navigate("/"); // Redirect to homepage or project list
+        dispatch(addNewproject(project)); 
+        navigate("/"); 
     };
 
     return (
@@ -87,6 +109,9 @@ const AddNewProject = () => {
                         />
                     </div>
 
+                  
+                    {error && <p className="text-red-500 text-sm">{error}</p>}
+
                     <div>
                         <label className="block text-gray-700">Status:</label>
                         <select
@@ -117,13 +142,16 @@ const AddNewProject = () => {
 
                     <button
                         type="submit"
-                        className="w-full bg-blue-500 text-white py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-300"
+                        className={`w-full py-2 rounded-lg shadow-md transition duration-300 ${
+                            error ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 text-white"
+                        }`}
+                        disabled={!!error}
                     >
                         ➕ Add Project
                     </button>
                 </form>
 
-                <BackBtn/>
+                <BackBtn />
             </div>
         </div>
     );

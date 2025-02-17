@@ -14,6 +14,7 @@ import AddNewProject from './components/forms/AddNewProject';
 import Navbar from './components/Page/Navbar';
 
 
+
 function App() {
 
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path='/addNewtask' element={<AddNewTask/>}/>
         <Route path='/addNewDevloper' element={<AddDevelopers/>}/>
         <Route path='/addNewProject' element={<AddNewProject/>}/>
+        
       </Routes>
      
     </div>
