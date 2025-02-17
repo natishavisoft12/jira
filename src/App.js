@@ -40,32 +40,3 @@ function App() {
 }
 
 export default App;
-// {
-//   "listOfProjects": [
-//     {
-//       "id": "1",
-//       "name": "project1",
-//       "listOfDevelopers": [
-//         {
-//           "devID": "",
-//           "devName": "",
-//           "listOfTasks": [
-//             {
-//               "taskId": "",
-//               "taskName": "",
-//               "status": "pending"
-//             },
-//             {
-//               "taskId": "",
-//               "taskName": "",
-//               "status": "qa"
-//             }
-//           ]
-//         }
-//       ]
-//     },
-//     {
-//       "project2": {}
-//     }
-//   ]
-// }
